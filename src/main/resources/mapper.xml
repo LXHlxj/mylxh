@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.i.springboot.mapper.UserMapper">
+<select id="id" resultType="com.i.springboot.mode.YuanGong" parameterType="java.lang.Integer">
+    select * from yuangong where id=#{id};
+</select>
+    <select id="queryname" resultType="com.i.springboot.mode.YuanGong" parameterType="java.lang.String">
+        select * from yuangong where name=#{name};
+    </select>
+    <select id="querynumber" resultType="com.i.springboot.mode.YuanGong" parameterType="java.lang.String">
+        select * from yuangong where number=#{number};
+    </select>
+    <select id="queryphone" resultType="com.i.springboot.mode.YuanGong" parameterType="java.lang.String">
+        select * from yuangong where phone=#{phone};
+    </select>
+    <select id="querysfz" resultType="com.i.springboot.mode.YuanGong" parameterType="java.lang.String">
+        select * from yuangong where sfz=#{sfz};
+    </select>
+    <update id="update" parameterType="com.i.springboot.mode.Update1">
+        update yuangong set gonzi=#{gonzi},phone=#{phone}  where number=#{number};
+    </update>
+   <!-- <select id="login" resultType="com.i.springboot2.mode.UserHr" parameterType="java.lang.String">
+        select username,password from hr where username =#{username} and password= #{password};
+    </select>-->
+    <insert id="Add" parameterType="java.util.List"  >
+
+        insert into yuangong2(id,name,sex,chengren,xueji,gonzi,beian,sfz,aihao,jineng,phone)
+        values
+        <foreach collection="list" item="yuanGong" index="index" separator=",">
+        (#{yuanGong.id},#{yuanGong.name},#{yuanGong.sex},#{yuanGong.chengren},#{yuanGong.xueji},#{yuanGong.gonzi},#{yuanGong.beian}
+        ,#{yuanGong.sfz},#{yuanGong.aihao},#{yuanGong.jineng},#{yuanGong.phone})
+    </foreach>
+    </insert>
+    <select id="queryall" resultType="com.i.springboot.mode.YuanGong" >
+        select * from yuangong ;
+    </select>
+    <select id="fy" resultType="com.i.springboot.mode.YuanGong" parameterType="int">
+        select * from yuangong where id=#{id};
+    </select>
+    <select id="likename" parameterType="java.lang.String" resultType="com.i.springboot.mode.YuanGong">
+        select *from yuangong where concat(name,sex,chengren,xueji,gonzi,beian,sfz,aihao,jineng,phone) like '%'#{name}'%'
+    </select>
+<!--    <select id="aaquery" resultType="com.i.springboot2.mode.YuanGong" parameterType="java.lang.String" >-->
+<!--        select * from yuangong where name=#{name}-->
+<!--<where>-->
+<!--    <if test="'' !=name and '' !=name">-->
+<!--     and name like concat('%','#{name}','%')-->
+<!--    </if>-->
+<!--</where>-->
+<!--    </select>-->
+    <select id="count" resultType="int">
+        select * from yuangong;
+    </select>
+    <select id="queryPage" resultType="com.i.springboot.mode.YuanGong" parameterType="com.i.springboot.mode.Page1">
+        select * from yuangong limit #{page},#{limit}
+    </select>
+</mapper>
